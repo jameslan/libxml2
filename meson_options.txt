@@ -8,6 +8,12 @@ option('catalog',
   description: 'XML Catalogs support'
 )
 
+option('winpath',
+  type: 'feature',
+  value: 'auto',
+  description: 'Handling Windows-styled path'
+)
+
 option('debugging',
   type: 'feature',
   description: 'Debugging module and shell'

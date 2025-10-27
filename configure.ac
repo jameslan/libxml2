@@ -68,6 +68,8 @@ AC_ARG_WITH(c14n,
 [  --with-c14n             Canonical XML 1.0 support (on)])
 AC_ARG_WITH(catalog,
 [  --with-catalog          XML Catalogs support (on)])
+AC_ARG_WITH(winpath,
+[  --with-winpath          Windows-styled path support (auto)])
 AC_ARG_WITH(debug,
 [  --with-debug            debugging module (on)])
 AC_ARG_WITH(docs,
@@ -559,6 +561,24 @@ else
 fi
 AC_SUBST(WITH_DEBUG)
 AM_CONDITIONAL(WITH_DEBUG_SOURCES, test "$WITH_DEBUG" = "1")
+
+if test "$with_winpath" = "yes" ; then
+    echo Enabling Windows path support
+    WITH_WINPATH=1
+elif test "$with_winpath" = "no" ; then
+    WITH_WINPATH=0
+else
+    case "$host" in
+        *-*-mingw* | *-*-cygwin* | *-*-msys* )
+            echo "Enabling Windows path support (default for Windows)"
+            WITH_WINPATH=1
+            ;;
+        *)
+            WITH_WINPATH=0
+            ;;
+    esac
+fi
+AC_SUBST(WITH_WINPATH)
 
 if test "$with_docs" = "yes" ; then
     echo Enabling documentation

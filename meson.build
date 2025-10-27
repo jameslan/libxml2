@@ -90,6 +90,10 @@ want_python = get_option('python').enabled()
 want_thread_alloc = get_option('thread-alloc').enabled()
 want_tls = get_option('tls').enabled()
 
+# auto-enabled on Windows
+feature = get_option('winpath')
+want_winpath = (sys_cygwin or sys_windows) ? feature.allowed() : feature.enabled()
+
 # default depends on minimum option
 
 want_minimum = get_option('minimum')
@@ -612,6 +616,7 @@ summary(
         'OS': host_os,
         'c14n': want_c14n,
         'catalog': want_catalog,
+        'winpath': want_winpath,
         'debug': want_debug,
         'docs': want_docs,
         'history': want_history,
